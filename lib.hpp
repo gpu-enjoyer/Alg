@@ -38,24 +38,27 @@ ostream& operator<<(
     return os;
 }
 
-
+// getMyTime(mySort, a, ...)
+template <typename SortFunc, typename... Args>
 double getMyTime(
+    SortFunc mySort,
     vector<size_t> a,
-    bool (*mySort)(vector<size_t>&))
+    Args... args)
 {
 	auto time0 = steady_clock::now();
-	if (!mySort(a)) 
+	if (!mySort(a, args...)) 
         throw std::runtime_error("Wrong sort");
 	auto time1 = steady_clock::now();
 	duration<double> time = time1 - time0;
 	return time.count();
 }
 
+// getStdTime(a)
 double getStdTime(
-    vector<size_t> b)
+    vector<size_t> a)
 {
 	auto time0 = steady_clock::now();
-	sort(b.begin(), b.end());
+	sort(a.begin(), a.end());
 	auto time1 = steady_clock::now();
 	duration<double> time = time1 - time0;
 	return time.count();

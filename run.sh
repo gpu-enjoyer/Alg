@@ -26,7 +26,7 @@ cd "$EXE_DIR"
 
 [[ ! -d ".build" ]] && mkdir ".build"
 
-g++ alg.cpp \
+g++ -std=c++20 alg.cpp \
     -o .build/alg || kill "$PROJ_DIR/alg.cpp not compiled"
 
 .build/alg || kill "$PROJ_DIR/.build/alg bad execution"

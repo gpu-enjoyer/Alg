@@ -1,0 +1,62 @@
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <random>
+#include <chrono>
+
+using namespace std;
+using namespace chrono;
+
+
+void gen_rand(
+    vector<size_t>& a,
+    size_t size,
+    size_t range)
+{
+    mt19937 mt(time(nullptr));
+    a.resize(size);
+    for (size_t i = 0; i < a.size(); ++i)
+		a[i] = mt() % range;
+}
+
+bool check(
+    const vector<size_t>& a)
+{
+    for (size_t i = 0; i < a.size() - 1; ++i)
+        if (a[i] > a[i + 1]) return false;
+    return true;
+}
+
+ostream& operator<<(
+    ostream& os,
+    const vector<size_t>& a)
+{
+    for (size_t i = 0; i < a.size(); ++i)
+        os << a[i] << ' ';
+    os << '\n';
+    return os;
+}
+
+
+double getMyTime(
+    vector<size_t> a,
+    bool (*mySort)(vector<size_t>&))
+{
+	auto time0 = steady_clock::now();
+	if (!mySort(a)) 
+        throw std::runtime_error("Wrong sort");
+	auto time1 = steady_clock::now();
+	duration<double> time = time1 - time0;
+	return time.count();
+}
+
+double getStdTime(
+    vector<size_t> b)
+{
+	auto time0 = steady_clock::now();
+	sort(b.begin(), b.end());
+	auto time1 = steady_clock::now();
+	duration<double> time = time1 - time0;
+	return time.count();
+}

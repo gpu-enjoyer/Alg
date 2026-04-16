@@ -72,32 +72,44 @@ bool shellSort(
 int main()
 {
 	const size_t sizes[6] = {1, 2, 3, 42, 100, 10000};
-	const size_t N        = 10;   // num of repeats
-	const size_t R        = 1000; // range
+	const size_t repeats  = 10;
 
-
-	double stdTime     = 0;
-	double myTime_lim1 = 0;
-	double myTime_lim2 = 0;
-
-	vector<size_t> a, b1, b2;
+	vector<size_t> a0, a1, a2;
+	double         t0, t1, t2;
 
 	for (size_t size : sizes)
 	{
-		for (size_t r = 0; r < N; ++r)
+		t0 = 0;
+		t1 = 0;
+		t2 = 0;
+
+		for (size_t r = 0; r < repeats; ++r)
 		{
-			gen_rand(a, size, R);
-			b1 = a;
-			b2 = a;
-			stdTime     += getStdTime(a);
-			myTime_lim1 += getMyTime(shellSort, b1, b1.size());
-			myTime_lim2 += getMyTime(shellSort, b2, std::max(b2.size() / 24, (size_t)1));
+			gen_rand(a0, size);
+			a1 = a0;
+			a2 = a0;
+
+			// std::sort
+			{
+				auto start = steady_clock::now();
+				std::sort(a0.begin(), a0.end());
+				auto end = steady_clock::now();
+				t0 += duration<double>(end - start).count();
+			}
+			// shell_sort, size
+			{
+				t1 += getTime(shellSort, a1, a1.size());
+			}
+			// shell_sort, size/24
+			{
+				t2 += getTime(shellSort, a2, std::max(a2.size() / 24, (size_t)1));
+			}
 		}
 
 		cout
-			<< "size ................................ " << size            << '\n'
-			<< "T(std) .............................. " << stdTime     / N << '\n'
-			<< "T(shell, lim = size) ................ " << myTime_lim1 / N << '\n'
-			<< "T(shell, lim = max(size / 24, 1)) ... " << myTime_lim2 / N << "\n\n";
+			<< "size ................................. " << size         << '\n'
+			<< "time(std) ............................ " << t0 / repeats << '\n'
+			<< "time(shell, lim = size) .............. " << t1 / repeats << '\n'
+			<< "time(shell, lim = max(size/24, 1)) ... " << t2 / repeats << "\n\n";
 	}
 }

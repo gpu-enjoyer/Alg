@@ -10,7 +10,7 @@
     - [x] `1_intersections`  
         Число элементов из отрезка *(+2)*
 - 3
-    - [ ] `0_merge_insert_sort`  
+    - [x] `0_merge_insert_sort`  
         Слияние после вставок *(+2)*
     - [ ] `1_inversion_pairs`  
         Число инверсий *(+2)*

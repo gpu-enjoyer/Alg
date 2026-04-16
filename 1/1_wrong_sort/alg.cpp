@@ -30,9 +30,9 @@ int main()
         a[1] = 1;
     }
 
-    cout << "before sort: " << a;
+    cout << "before sort: " << a << '\n';
     wrong_sort(a);
-    cout << "    " << (check(a) ? "correct: " : "  wrong: ") << a;
+    cout << "    " << (check(a) ? "correct: " : "  wrong: ") << a << '\n';
 
     return 0;
 }

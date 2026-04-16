@@ -53,9 +53,9 @@ int main()
 
     gen_rand(a, size, 10);
 
-    cout << "before sort: " << a;
+    cout << "before sort: " << a << '\n';
     updown_sort(a);
-    cout << " after sort: " << a;
+    cout << " after sort: " << a << '\n';
 
     if (!check_updown(a)) return 1;
     return 0;

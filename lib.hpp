@@ -9,8 +9,17 @@ using namespace std;
 using namespace chrono;
 
 
+bool check(
+    const vector<size_t>& a)
+{
+    for (size_t i = 0; i < a.size() - 1; ++i)
+        if (a[i] > a[i + 1]) return false;
+    return true;
+}
+
+template <typename T>
 void gen_rand(
-    vector<size_t>& a,
+    vector<T>& a,
     size_t size,
     size_t range)
 {
@@ -20,30 +29,22 @@ void gen_rand(
 		a[i] = mt() % range;
 }
 
-bool check(
-    const vector<size_t>& a)
-{
-    for (size_t i = 0; i < a.size() - 1; ++i)
-        if (a[i] > a[i + 1]) return false;
-    return true;
-}
-
+template <typename T>
 ostream& operator<<(
     ostream& os,
-    const vector<size_t>& a)
+    const vector<T>& a)
 {
     for (size_t i = 0; i < a.size(); ++i)
         os << a[i] << ' ';
-    os << '\n';
+    // os << '\n';
     return os;
 }
 
-// getMyTime(mySort, a, ...)
 template <typename SortFunc, typename... Args>
 double getMyTime(
-    SortFunc mySort,
+    SortFunc       mySort,
     vector<size_t> a,
-    Args... args)
+    Args...        args)
 {
 	auto time0 = steady_clock::now();
 	if (!mySort(a, args...)) 
@@ -53,7 +54,6 @@ double getMyTime(
 	return time.count();
 }
 
-// getStdTime(a)
 double getStdTime(
     vector<size_t> a)
 {

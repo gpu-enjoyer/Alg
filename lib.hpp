@@ -18,7 +18,7 @@ bool check(
     return true;
 }
 
-//!
+
 template <typename T>
 void gen_rand(
     vector<T>& a,
@@ -52,6 +52,26 @@ void gen_rand(
     for (size_t i = 0; i < a.size(); ++i)
 		a[i] = mt();
 }
+
+
+template <typename T>
+void gen_rand_unique(
+    std::vector<T>& a,
+    size_t size,
+    int range)
+{
+    static_assert(std::is_same_v<T, int>, "Use vector<int>");
+    if (2 * range + 1 < (int)size)
+        throw std::runtime_error("Range is too small");
+    static std::mt19937 mt(time(nullptr));
+    std::vector<int> pool;
+    pool.reserve(2 * range + 1);
+    for (int x = -range; x <= range; ++x)
+        pool.push_back(x);
+    std::shuffle(pool.begin(), pool.end(), mt);
+    a.assign(pool.begin(), pool.begin() + size);
+}
+
 
 
 template <typename T>

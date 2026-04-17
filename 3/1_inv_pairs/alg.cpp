@@ -62,9 +62,21 @@ size_t __count_invs(
 	size_t pos = left + (right - left) / 2;
 	size_t inv = 0;
 
+	// Спускаемся вниз – берем левые половины
 	inv +=  __count_invs(a, buf, left, pos        );
+
+	// Теперь берем правые половины
 	inv +=  __count_invs(a, buf, pos,  right      );
+
+	// - Пришли в вырожденный отрезок (l >= r - 1):
+	//    вернуть 0 инверсий ('return env' не выполняется)
+	// - Пришли в отрезок побольше:
+	//    запустить __merge_count()
+
 	inv += __merge_count(a, buf, left, pos,  right);
+	// Соединяем половины,
+	//  сортируем,
+	//   по пути считаем инверсии
 
 	return inv;
 }
@@ -79,7 +91,7 @@ size_t count_invs(
 
 int main()
 {
-	vector<int> a(10);
+	vector<int> a(5);
 	gen_rand(a, a.size(), 30);
 
 	cout << "\n{" << a << "}\n" 

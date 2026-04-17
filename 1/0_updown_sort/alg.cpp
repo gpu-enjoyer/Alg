@@ -2,7 +2,7 @@
 #include "../../lib.hpp"
 
 bool check_updown(
-    const vector<size_t>& a)
+    const vector<int>& a)
 {
     bool up_exp = false;
     bool up;
@@ -20,7 +20,7 @@ bool check_updown(
 }
 
 void updown_sort(
-    vector<size_t>& a)
+    vector<int>& a)
 {
     int  shift   = 0; 
     bool min_max = true;
@@ -46,7 +46,7 @@ void updown_sort(
 int main()
 {
     size_t size = 0;
-    vector<size_t> a;
+    vector<int> a;
 
     cout << " input size: ";
     cin >> size;

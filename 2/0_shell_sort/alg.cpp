@@ -33,28 +33,28 @@
 /// https://en.wikipedia.org/wiki/P-adic_number
 
 
-vector<size_t> getGaps(
+vector<size_t> get_gaps(
 	size_t lim)
 {
 	vector<size_t> gaps;
-	for (unsigned long long k2 = 1; k2 <= lim; k2 *= 2)
-		for (unsigned long long k6 = k2; k6 <= lim; k6 *= 3)
+	for (size_t k2 = 1; k2 <= lim; k2 *= 2)
+		for (size_t k6 = k2; k6 <= lim; k6 *= 3)
 			gaps.push_back(k6);
 	sort(gaps.begin(), gaps.end());
 	return gaps;
 }
 
 
-bool shellSort(
-	vector<size_t> &a,
+bool shell_sort(
+	vector<int> &a,
 	const size_t lim)
 {
-	vector<size_t> gaps = getGaps(lim);
+	vector<size_t> gaps = get_gaps(lim);
 	for (size_t gap : gaps | std::views::reverse) { // c++20
 	// Проходим по массиву смещений.
 		for (size_t i = gap; i < a.size(); ++i) {
 		// insertion_sort()
-			size_t val = a[i];
+			int    val = a[i];
 			size_t pos = i;
 			while (pos >= gap && a[pos - gap] > val) {
 			// Двигаем вакантное место для val.
@@ -71,11 +71,11 @@ bool shellSort(
 
 int main()
 {
-	const size_t sizes[6] = {1, 2, 3, 42, 100, 10000};
-	const size_t repeats  = 10;
+	const size_t sizes[8] = {1, 2, 3, 100, 1'000, 10'000, 100'000, 1'000'000};
+	const size_t repeats  = 3;
 
-	vector<size_t> a0, a1, a2;
-	double         t0, t1, t2;
+	vector<int> a0, a1, a2;
+	double      t0, t1, t2;
 
 	for (size_t size : sizes)
 	{
@@ -98,11 +98,11 @@ int main()
 			}
 			// shell_sort, size
 			{
-				t1 += getTime(shellSort, a1, a1.size());
+				t1 += getTime(shell_sort, a1, a1.size());
 			}
 			// shell_sort, size/24
 			{
-				t2 += getTime(shellSort, a2, std::max(a2.size() / 24, (size_t)1));
+				t2 += getTime(shell_sort, a2, std::max(a2.size() / 24, (size_t)1));
 			}
 		}
 

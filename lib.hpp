@@ -54,20 +54,18 @@ void gen_rand(
 }
 
 
-template <typename T>
 void gen_rand_unique(
-    std::vector<T>& a,
+    std::vector<unsigned long>& a,
     size_t size,
-    int range)
+    size_t range)
 {
-    static_assert(std::is_same_v<T, int>, "Use vector<int>");
-    if (2 * range + 1 < (int)size)
+    if (range <= size)
         throw std::runtime_error("Range is too small");
     static std::mt19937 mt(time(nullptr));
-    std::vector<int> pool;
-    pool.reserve(2 * range + 1);
-    for (int x = -range; x <= range; ++x)
-        pool.push_back(x);
+    std::vector<unsigned long> pool;
+    pool.reserve(range);
+    for (int elem = 0; elem <= range; ++elem)
+        pool.push_back(elem);
     std::shuffle(pool.begin(), pool.end(), mt);
     a.assign(pool.begin(), pool.begin() + size);
 }

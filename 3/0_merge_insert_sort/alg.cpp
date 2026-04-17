@@ -140,7 +140,7 @@ int main()
 				}
 
 				// merge_insertion_sort
-				t2 += getTime(merge_insertion_sort, a2, m);
+				t2 += get_time(merge_insertion_sort, a2, m);
 			}
 
 			cout

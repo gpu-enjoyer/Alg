@@ -90,7 +90,7 @@ template <
     typename  T,
     typename... Args
 >
-double getTime(
+double get_time(
     SortFunc   sort_func,
     vector<T>  a,
     Args...    args)

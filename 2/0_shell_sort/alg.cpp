@@ -98,11 +98,11 @@ int main()
 			}
 			// shell_sort, size
 			{
-				t1 += getTime(shell_sort, a1, a1.size());
+				t1 += get_time(shell_sort, a1, a1.size());
 			}
 			// shell_sort, size/24
 			{
-				t2 += getTime(shell_sort, a2, std::max(a2.size() / 24, (size_t)1));
+				t2 += get_time(shell_sort, a2, std::max(a2.size() / 24, (size_t)1));
 			}
 		}
 

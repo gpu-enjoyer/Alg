@@ -45,7 +45,7 @@ void updown_sort(
 
 int main()
 {
-    size_t size = 0;
+    uint16_t size = 0;
     vector<int> a;
 
     cout << " input size: ";
